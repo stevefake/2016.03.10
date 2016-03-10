@@ -15,6 +15,30 @@
 # Should be able to convert Currency in any currency code it knows about to Currency in any other currency code it knows about.
 # Should raise an UnknownCurrencyCodeError when you try to convert from or to a currency code it doesn't know about.
 
+class CurrencyConverter
+  def initialize(symbol,currency,rates)
+    @symbol = symbol
+    @currency = currency
+    @rates = rates
+  end
+
+
+
+
+
+
+
+end
+
+
+
+# NADIA:
+# def initialize({USD:1,JPY:2})
+#   @rates = {}
+# end
+#
+# def convert
+# END NADIA
 
 # ////////////////
 

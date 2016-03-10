@@ -1,9 +1,10 @@
 # currency app utilizing the class files
 
-class currency
+require_relative 'currency_converter.rb'
 
-end
+require_relative 'currency.rb'
 
-class currency_converter
+USD_currency = Currency.new(12) #remember to caps the method
 
-end
+  USD_currency.set_amount_of_currency(12) # => 12
+#  JPY_currency.set_amount_of_currency(16)    # => 16
