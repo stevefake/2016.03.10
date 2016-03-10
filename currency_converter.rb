@@ -1,7 +1,12 @@
 
 # define a A CurrencyConverter class in its own file.
 
+# represent a currency converter (arguably a real-world person,
+# but actually a set of procedures)
 
+
+
+# ////////////////
 
 # class EvenAdder
 #
