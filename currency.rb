@@ -62,7 +62,8 @@ c2.currency_code
 c1.amount
 c2.amount
 
-
+# ¥
+# €
 
   def initialize(amount)
     @amount
