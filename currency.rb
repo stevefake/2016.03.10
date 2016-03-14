@@ -36,34 +36,41 @@
 #line14: Currency.new(pass argument)
 #   $1.20" or "€ 7.00 or
 
-class Currency
-  def initialize(string) #to strip the currency symbol
-    split_money = string.split("")
-    currency_type = split_money.shift #takes off the first value of the array (the "$")
-    @amount = split_money.join("")
-    numerics.to_f
-    symbol_map = {"$" => :USD, "Eurosymbol" => :EUR, "Yensym" => :JPY}
-    #or array [currency_type, numerics]
-    @currency_code = symbol_map[currency_type]
-  end
-
-  def amount
-    @amount
-  end
-
-  def currency_code
-    @currency_code
-  end
-end
-c1 = Currency.new("$1123.00") # => "$"
-c2 = Currency.new("$1123.00") # => 1123
-c1.currency_code
-c2.currency_code
-c1.amount
-c2.amount
-
+# $
 # ¥
 # €
+
+
+# Currency objects:
+# Should be created with an amount and a currency code
+
+
+class Currency
+#   def initialize(string) #to strip the currency symbol
+#     split_money = string.split("")
+#     currency_type = split_money.shift #takes off the first value of the array (the "$")
+#     @amount = split_money.join("")
+#     numerics.to_f
+#     symbol_map = {"$" => :USD, "Eurosymbol" => :EUR, "Yensym" => :JPY}
+#     #or array [currency_type, numerics]
+#     @currency_code = symbol_map[currency_type]
+#   end
+#
+#   def amount
+#     @amount
+#   end
+#
+#   def currency_code
+#     @currency_code
+#   end
+# end
+# c1 = Currency.new("$1123.00") # => "$"
+# c2 = Currency.new("$1123.00") # => 1123
+# c1.currency_code
+# c2.currency_code
+# c1.amount
+# c2.amount
+
 
   def initialize(amount)
     @amount
@@ -89,4 +96,22 @@ c2.amount
     @amount_of_currency -= size_of_add
   end
 
+# Currency objects:
+# Should be created with an amount and a currency code
+
+def currency_dollar
+  @currency_dollar = $1
+end
+
+def currency_yen
+  currency_yen = ¥1
+end
+def currency_euro
+  currency_euro = €1
+end
+
+######
+def speak
+    puts "RAWRRRR"
+  end
 end
