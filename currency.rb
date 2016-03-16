@@ -1,29 +1,8 @@
 
-#line7: currency_code = USD
-#       currency_amount = 10
-#line8: USD 1 == USD 1
-#currency.new(1, :USD)
-
-#line9: USD 1 != EUR 7.00
-#       USD: 1.0, EUR: 0.74, JPY: 120.0
-
-#line10: USD(1) + USD(2) = USD(3)
-
-#line11: USD(1) - USD(2) = USD(3)
-
-#line12: if USD +- EUR != false
-#           raise "DifferentCurrencyCodeError"
-
-#line13: if USD * Fixnum or Float
-#            return currency
-
-#line14: Currency.new(pass argument)
-#   $1.20" or "€ 7.00 or
 
 # $
 # ¥
 # €
-
 
 # Currency objects:
 # Should be created with an amount and a currency code
@@ -31,7 +10,7 @@
 class Currency
   # attr_reader: :amount, :code
 
-  def initialize(amount, code)  # ~> ArgumentError: wrong number of arguments (given 1, expected 2)
+  def initialize(amount, code)
      @amount = amount           # => 23, 2
      @code = code               # => :USD, :USD
    end                          # => :initialize
@@ -64,10 +43,24 @@ class Currency
     new_amount = @amount * other  # => 184, 16.0
   end                             # => :*
 
-end  # => :*
+  def symbol_strip(string)
+    string.shift.to_f
+  end                       # => :symbol_strip
 
-c1 = Currency.new(23, :USD)  # => #<Currency:0x007fd944188218 @amount=23, @code=:USD>
-c2 = Currency.new(2, :USD)   # => #<Currency:0x007fd944189078 @amount=2, @code=:USD>
+  def symbol(string)
+    string.to_f       # => 23.0, 0.0
+  end                 # => :symbol
+
+  def split_currency(string)
+    split_currency = string.chars           # => ["$", "2", "3"]
+    @symbol = split_currency.shift          # => "$"
+    @amount = split_currency.join("").to_f  # => 23.0
+  end                                       # => :split_currency
+
+end  # => :split_currency
+
+c1 = Currency.new(23, :USD)  # => #<Currency:0x007fb0dc1cbbe8 @amount=23, @code=:USD>
+c2 = Currency.new(2, :USD)   # => #<Currency:0x007fb0dc1cab80 @amount=2, @code=:USD>
 
 c1.amount  # => 27.599999999999998
 c1.code    # => :USD
@@ -87,10 +80,22 @@ c1 - c2  # => 20.6
 c1 * 8    # => 184
 c2 * 8.0  # => 16.0
 
-c1 = Currency.new("$23.00")
-c2 = Currency.new("$2.00")
+c1.symbol("23")           # => 23.0
+c1.symbol("$23")          # => 0.0
+c1.split_currency("$23")  # => 23.0
+
+# c1 = Currency.new("$23.00")
+# c2 = Currency.new("$2.00")
+
+# Currency.new should be able to take one argument with a currency symbol
+# embedded in it, like "$1.20" or "€ 7.00", and figure out the correct currency
+# code. It can also take two arguments like before, one being the amount and the
+# other being the currency code.
 
 
+# "$5.20" == USD: 5.20
+# puts true
+# end
 # amount = 1
 # code = USD
 # puts @amount
@@ -157,72 +162,3 @@ c2 = Currency.new("$2.00")
 #   puts euro = "€1"
 # end
 ######
-
-# dollar.currency_dollar(1) = euro.currency_euro(0.9)
-# = yen.currency_yen(113.8)
-
-######
-
-
-# def currency_code(code)
-#   @code = code
-# end
-#
-# def initialize(code) # `initialize': wrong number of arguments
-#                      # (given 0, expected 1) (ArgumentError)
-#     @code = code
-# end
-#
-# def set_code(code)
-#     @code = code
-# end
-#
-# dollar = Currency.new
-#
-# dollar.set_code("USD") # `<top (required)>': undefined method `set_code'
-#                          # for #<Currency:0x007ffb13058ac8> (NoMethodError)
-#                        # undefined local variable or method `dollar' for
-#                        # main:Object (NameError)
-#
-# def code
-#    @code
-#  end
-#
-# dollar = Currency.new("USD") # `initialize': wrong number of arguments
-#                              # (given 1, expected 0) (ArgumentError)
-
-
-######
-
-# def speak
-#     puts "RAWRRRR"
-# end
-#
-#
-# #class Dinosaur
-#   def speak(roar, type)
-#     puts "The #{type} roared, \"#{roar}\""
-#   end
-#
-#
-# ###
-# #class Dinosaur # Currency
-#   def set_type(type) # currency_code
-#     @type = type # @code
-#   end
-#
-#
-# trex = Dinosaur.new # dollar = Currency.new
-# #=> #<Dinosaur:0x007fd90387c510>
-#
-# trex.set_type("T-Rex") # dollar.set_code(USD)
-# # => "T-Rex"
-#
-# trex #USD
-
-# ~> ArgumentError
-# ~> wrong number of arguments (given 1, expected 2)
-# ~>
-# ~> /Users/stevefake/Desktop/iron_yard/2016.03.10_git_repo/currency.rb:34:in `initialize'
-# ~> /Users/stevefake/Desktop/iron_yard/2016.03.10_git_repo/currency.rb:90:in `new'
-# ~> /Users/stevefake/Desktop/iron_yard/2016.03.10_git_repo/currency.rb:90:in `<main>'
