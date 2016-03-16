@@ -1,104 +1,31 @@
-# require 'currency.rb'                                                                  # ~> LoadError: cannot load such file -- currency.rb
-# require './currency.rb'
-# require 'currency'
-# require './currency'
-# require '/Users/stevefake/Desktop/iron_yard/2016.03.10_git_repo/currency.rb'
-# require_relative 'currency.rb'
-# require_relative './currency.rb'
 require_relative 'currency'            # => true
-# require_relative './currency'
-# require_relative '/Users/stevefake/Desktop/iron_yard/2016.03.10_git_repo/currency.rb'
-#
 require_relative 'currency_converter'  # => true
 
-currency1 = Currency.new(3, :USD)                                                 # => #<Currency:0x007fbafb8660d8 @amount=3, @code=:USD>
-currency2 = Currency.new(5, :EUR)                                                 # => #<Currency:0x007fbafb867ed8 @amount=5, @code=:EUR>
-convert(Currency.new(5, :USD), :USD)                                              # ~> NoMethodError: undefined method `convert' for main:Object
-currency_converter.convert(Currency.new(1, :USD), :USD) == Currency.new(1, :USD)
+currency_object_1 = Currency.new(1.0, :USD)  # => #<Currency:0x007fc4cb8d0008 @amount=1.0, @code=:USD>
+currency_object_2 = Currency.new(3, :EUR)    # => #<Currency:0x007fc4cb8d0a80 @amount=3, @code=:EUR>
+currency_object_3 = Currency.new(5, :JPY)    # => #<Currency:0x007fc4cb8d1408 @amount=5, @code=:JPY>
 
-USD = Currency.new("USD")
-USD.Currency
+# At first, just make this work with two currency codes and conversation rates,
+#  with one rate being 1.0 and the other being the conversation rate. An example
+#  would be this: {USD: 1.0, EUR: 0.74}, which implies that a dollar is worth 0.74 euros.
 
-USD = CurrencyConverter.new("USD")
-USD.code
+currency_object_1 = Currency.new(1.0, :USD)  # => #<Currency:0x007fc4cb8cbe68 @amount=1.0, @code=:USD>
+currency_object_1.code                       # => :USD
+currency_object_1.amount                     # => 1.0
+currency_object_1.add_five                   # => 6.0
+currency_object_1.amount                     # => 6.0
+currency_object_1                            # => #<Currency:0x007fc4cb8cbe68 @amount=6.0, @code=:USD>
 
+currency_object_2 = Currency.new(5, :EUR)  # => #<Currency:0x007fc4cb8c9ca8 @amount=5, @code=:EUR>
 
+curobj1_converted = CurrencyConverter.new(currency_object_1, :EUR)  # => #<CurrencyConverter:0x007fc4cb8c9910 @target_code=:EUR, @currency_obj=#<Currency:0x007fc4cb8cbe68 @amount=6.0, @code=:USD>, @rate=0.9, @converted_amount=nil>
+curobj2 = CurrencyConverter.new(currency_object_2, :JPY)            # => #<CurrencyConverter:0x007fc4cb8c90c8 @target_code=:JPY, @currency_obj=#<Currency:0x007fc4cb8c9ca8 @amount=5, @code=:EUR>, @rate=1.2, @converted_amount=nil>
 
-#
-# USD_currency.set_amount_of_currency(12)
-# USD_currency
-#
-#
-# # amount_of_currency
-# #  JPY_currency.set_amount_of_currency(16)    # => 16
-#
-# # Should be created with an amount and a currency code
-#
-# dollar = Currency.new(1)
-# dollar.currency_dollar
-#
-# yen = Currency.new(1)
-# yen.currency_yen
-#
-# euro = Currency.new(1)
-# euro.currency_euro
-#
-#############
-# Should equal another Currency object with the same amount and currency code
-# Should NOT equal another Currency object with different amount or currency code
-#
-# puts "Currency object equals another currency object with the same amount and currency code?"
-#
-# if dollar.currency_dollar == dollar.currency_dollar
-#   print "#{dollar.currency_dollar} == #{dollar.currency_dollar}"
-#   puts true
-# else
-#   puts false
-# end
-#
-# puts "Currency object does NOT equal another currency object with different amount or currency code"
-# if yen.currency_yen != euro.currency_euro
-#   puts true
-# else
-#   puts false
-# end
-#   #
-#
-#
-# ######
-# trex = Currency.new(1)
-# trex.speak
-#
-# trex = Dinosaur.new
-# trex.speak("RAWRRRR", "T-Rex")
+puts CurrencyConverter.new(currency_object_3, :EUR).converted_amount  # => nil
 
-###
-# THOUGHTS ON HW:
-#
-# prolly use a local variable as the arbitrary currency value to set
-# and…
-# …use instance variable @sign as the fixed conversion?
-#
-#
-# using both of these allows you to get different results for two class instances from one defined method
-#
-# def set_amount_of_currency(new_amount)
-#   @amoung_of_currency = new_amount
-# end
-# USD_currency.set_amount_of_currency(12) # => 12
-# JPY_currency.set_amount_of_currency(16)    # => 16
-#
-# def add_currency
-#   size_of_add = 2.6
-#   @amount_of_currency -= size_of_add
-# end
-#
-# def add_currency(size_of_add = 2.6)   #default argument
-#   @amount_of_currency -= size_of_add
-# end
-#
-
-# ~> NoMethodError
-# ~> undefined method `convert' for main:Object
-# ~>
-# ~> /Users/stevefake/Desktop/iron_yard/2016.03.10_git_repo/app.rb:16:in `<main>'
+# >> The amount in EUR is 5.4.
+# >> The amount in EUR is 5.4.
+# >> The amount in JPY is 6.0.
+# >> The amount in EUR is 1.5.
+# >> The amount in EUR is .
+# >>
