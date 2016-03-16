@@ -82,7 +82,7 @@ conversion_rate = CurrencyConverter::CODE_CONVERSION_RATES["USD"]["JPY"]  # => 1
 
 conversion_rate = CurrencyConverter::CODE_CONVERSION_RATES["JPY"]["EUR"]  # => 0.3
 
-CurrencyConverter::convert("JPY","EUR")  # ~> NoMethodError: undefined method `convert' for CurrencyConverter:Class
+# CurrencyConverter::convert("JPY","EUR")  # ~> NoMethodError: undefined method `convert' for CurrencyConverter:Class
 
 @code
 @rate

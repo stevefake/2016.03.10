@@ -11,14 +11,10 @@ require_relative 'currency'            # => true
 #
 require_relative 'currency_converter'  # => true
 
-currency1 = Currency.new(3, :USD)  # => #<Currency:0x007fda1c0b26a8 @amount=3, @code=:USD>
-currency2 = Currency.new(5, :EUR)  # => #<Currency:0x007fda1c0b2220 @amount=5, @code=:EUR>
-
-                                                             # ~> TypeError: Currency can't be coerced into Fixnum
-convert(Currency.new(5, :USD), :USD)
+currency1 = Currency.new(3, :USD)                                                 # => #<Currency:0x007fbafb8660d8 @amount=3, @code=:USD>
+currency2 = Currency.new(5, :EUR)                                                 # => #<Currency:0x007fbafb867ed8 @amount=5, @code=:EUR>
+convert(Currency.new(5, :USD), :USD)                                              # ~> NoMethodError: undefined method `convert' for main:Object
 currency_converter.convert(Currency.new(1, :USD), :USD) == Currency.new(1, :USD)
-#takes amount and code and conversion code and gives amount in conversion code
-#  references key value of hash and multiplies it by the amount
 
 USD = Currency.new("USD")
 USD.Currency
@@ -102,9 +98,7 @@ USD.code
 # end
 #
 
-# ~> TypeError
-# ~> Currency can't be coerced into Fixnum
+# ~> NoMethodError
+# ~> undefined method `convert' for main:Object
 # ~>
-# ~> /Users/stevefake/Desktop/iron_yard/2016.03.10_git_repo/currency.rb:43:in `*'
-# ~> /Users/stevefake/Desktop/iron_yard/2016.03.10_git_repo/currency.rb:43:in `*'
-# ~> /Users/stevefake/Desktop/iron_yard/2016.03.10_git_repo/app.rb:17:in `<main>'
+# ~> /Users/stevefake/Desktop/iron_yard/2016.03.10_git_repo/app.rb:16:in `<main>'
