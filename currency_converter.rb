@@ -36,7 +36,7 @@ class CurrencyConverter
     if CODE_CONVERSION_RATES.include?(target_code)                       # => true, true
       @target_code = target_code                                         # => :EUR, :EUR
     else
-      raise ArgumentError, "Uknown currency target_code #{target_code}"
+      raise ArgumentError, "Uknown currency #{target_code}"
     end                                                                  # => :EUR, :EUR
     @rate = CODE_CONVERSION_RATES[@currency_obj.code][@target_code]      # => 0.9, 0.9
     @rate = rate                                                         # => 0.9, 0.9

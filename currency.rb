@@ -6,6 +6,15 @@
 class Currency
   # attr_reader: :amount, :code
 
+  Currency_Symbols = {
+    "$" => :USD,        # => :USD
+    "¥" => :JPY,        # => :JPY
+    "€" => :EUR         # => :EUR
+  }                     # => {"$"=>:USD, "¥"=>:JPY, "€"=>:EUR}
+  # if Currency_Symbols.include?("single_argument_string".chars)                       # => true, true
+  #   Currency_Symbols["single_argument_string".shift]                                         # => :EUR, :EUR
+  # end
+
   def initialize(amount, code)
      @amount = amount
      @code = code
@@ -28,7 +37,11 @@ class Currency
   end             # => :add_five
 
   def +(other)
+#    if other.code = @code
     new_amount = @amount + other.amount
+  #   else
+  #     raise ArgumentError, "Error: different currency code."
+  # end
   end                                    # => :+
 
   def add(other)
@@ -42,6 +55,11 @@ class Currency
   def *(other)
     new_amount = @amount * other
   end                             # => :*
+
+  # def ==(other)
+  #   return false unless other.instance_of?(self.class)
+  #   currency_object == other.currency_object && name == other.name
+  # end
 
   def symbol_strip(string)
     string.shift.to_f
