@@ -1,84 +1,63 @@
-
-# $
-# ¥
-# €
-
 class Currency
-  # attr_reader: :amount, :code
+# attr_reader: :amount, :code
 
   Currency_Symbols = {
-    "$" => :USD,        # => :USD
-    "¥" => :JPY,        # => :JPY
-    "€" => :EUR         # => :EUR
-  }                     # => {"$"=>:USD, "¥"=>:JPY, "€"=>:EUR}
-  # if Currency_Symbols.include?("single_argument_string".chars)                       # => true, true
-  #   Currency_Symbols["single_argument_string".shift]                                         # => :EUR, :EUR
-  # end
+    "$" => :USD,
+    "¥" => :JPY,
+    "€" => :EUR
+  }
 
   def initialize(amount, code=:NA)
-     @amount = amount
-     @code = code
-     if @amount.is_a?(String)
-#       puts "STRING!!"
-       if @amount.include?("$" || "¥" || "€") # Currency_Symbols hash
-#         puts "Currency_Symbols key"
-         @symbol = @amount.chars.shift
-         @amount = @amount.gsub(/[^\d\.]/, '').to_f
-         @code = Currency_Symbols[@symbol]
-       end
-     end
-#  puts "The amount in #{@code} is #{@amount}"
-  end  # => :initialize
-
-  def parse_currency(amount)
-    @parse_currency
-    parse_currency = amount.chars
-    @symbol = parse_currency.shift
-    @amount = parse_currency.join("").to_f
-  end                                       # => :parse_currency
+    @amount = amount
+    @code = code
+    if @amount.is_a?(String)
+      if @amount.include?("$" || "¥" || "€")
+        @symbol = @amount.chars.shift
+        @amount = @amount.gsub(/[^\d\.]/, '').to_f
+        @code = Currency_Symbols[@symbol]
+      end
+    end
+    # puts "The amount in #{@code} is #{@amount}."
+  end
 
   def amount
     @amount
-  end         # => :amount
+  end
 
   def code
     @code
-  end       # => :code
-
-  def add_simple
-    @amount + 5
-  end             # => :add_simple
-
-  def add_five
-    @amount += 5
-  end             # => :add_five
+  end
 
   def +(other)
-    # if @code == other.code
+    if @code == other.code
     new_amount = @amount + other.amount
-    # else
-    #   raise ArgumentError, "Error: different currency code."
-    # end
-  end                                    # => :+
+    else
+      raise ArgumentError, "Error: different currency code."
+    end
+  end
 
   def add(other)
     self + other
-  end             # => :add
+  end
 
   def -(other)
+    if @code == other.code
     new_amount = @amount - other.amount
-  end                                    # => :-
+    else
+      raise ArgumentError, "Error: different currency code."
+    end
+  end
 
   def *(other)
     new_amount = @amount * other
     "#{new_amount} #{@code}"
-  end                             # => :*
+  end
 
   def ==(other)
     (@amount == other.amount && @code == other.code) || (@amount == @converted_amount && @code == @target_code)
     # if currency_obj
     #   @amount == currency_obj.amount && @code == currency_obj.code
     # end
-  end                        # => :==
+  end
 
-end  # => :==
+end
