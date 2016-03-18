@@ -15,10 +15,27 @@ class Currency
   #   Currency_Symbols["single_argument_string".shift]                                         # => :EUR, :EUR
   # end
 
-  def initialize(amount, code)
+  def initialize(amount, code=:NA)
      @amount = amount
      @code = code
-   end                          # => :initialize
+     if @amount.is_a?(String)
+#       puts "STRING!!"
+       if @amount.include?("$" || "¥" || "€") # Currency_Symbols hash
+#         puts "Currency_Symbols key"
+         @symbol = @amount.chars.shift
+         @amount = @amount.gsub(/[^\d\.]/, '').to_f
+         @code = Currency_Symbols[@symbol]
+       end
+     end
+#  puts "The amount in #{@code} is #{@amount}"
+  end  # => :initialize
+
+  def parse_currency(amount)
+    @parse_currency
+    parse_currency = amount.chars
+    @symbol = parse_currency.shift
+    @amount = parse_currency.join("").to_f
+  end                                       # => :parse_currency
 
   def amount
     @amount
@@ -37,11 +54,11 @@ class Currency
   end             # => :add_five
 
   def +(other)
-#    if other.code = @code
+    # if @code == other.code
     new_amount = @amount + other.amount
-  #   else
-  #     raise ArgumentError, "Error: different currency code."
-  # end
+    # else
+    #   raise ArgumentError, "Error: different currency code."
+    # end
   end                                    # => :+
 
   def add(other)
@@ -54,25 +71,14 @@ class Currency
 
   def *(other)
     new_amount = @amount * other
+    "#{new_amount} #{@code}"
   end                             # => :*
 
-  # def ==(other)
-  #   return false unless other.instance_of?(self.class)
-  #   currency_object == other.currency_object && name == other.name
-  # end
+  def ==(other)
+    (@amount == other.amount && @code == other.code) || (@amount == @converted_amount && @code == @target_code)
+    # if currency_obj
+    #   @amount == currency_obj.amount && @code == currency_obj.code
+    # end
+  end                        # => :==
 
-  def symbol_strip(string)
-    string.shift.to_f
-  end                       # => :symbol_strip
-
-  def symbol(string)
-    string.to_f
-  end                 # => :symbol
-
-  def split_currency(string)
-    split_currency = string.chars
-    @symbol = split_currency.shift
-    @amount = split_currency.join("").to_f
-  end                                       # => :split_currency
-
-end  # => :split_currency
+end  # => :==
