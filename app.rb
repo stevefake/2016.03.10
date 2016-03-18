@@ -64,16 +64,17 @@ puts Currency.new("$1.20").amount
 
 puts ""
 
-puts "Currency Converter accepts two currency codes and conversation rates, with one rate being 1.0 and the other being the conversation rate."
+puts "Currency Converter accepts two currency codes and conversion rates, with one rate being 1.0 and the other being the conversion rate."
 # CurrencyConverter.new{USD: 1.0, EUR: 0.74}
 CurrencyConverter.new(currency_object_2, :JPY)
 CurrencyConverter.new(currency_object_3, :USD)
 CurrencyConverter.new(currency_object_4, :JPY)
-# Doesn't accept a hash and it only accepts three inputs, not four
+# Doesn't accept a hash and it does not accept input rates
+
 puts ""
 
 puts "Currency Converter takes a Currency object and a requested currency code that is the same currency code as the Currency object's and return a Currency object equal to the one passed in."
-  if CurrencyConverter.new(Currency.new(1, :USD), :USD) == Currency.new(1, :USD)
+  if CurrencyConverter.new(currency_object_1, :USD) == Currency.new(1, :USD)
     puts true
   else
     puts false
@@ -86,8 +87,7 @@ puts "Currency Converter takes a Currency object and a requested currency code t
 puts ""
 
 puts "Currency Converter takes a Currency object that has one currency code it knows and a requested currency code and return a new Currency object with the right amount in the new currency code."
-puts CurrencyConverter.new(Currency.new(10, :USD), :JPY).converted_amount
-# Unwanted stray additional output "The amount in JPY is ."
+puts CurrencyConverter.new(Currency.new(10, :USD), :JPY)
 
 puts ""
 
